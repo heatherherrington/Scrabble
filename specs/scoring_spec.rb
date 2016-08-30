@@ -13,9 +13,9 @@ describe Scrabble::Scoring do
   describe "#self.score(word)" do
     #let(:scoring_instance) { Scrabble::Scoring.new() }
 
-    # it "should take a parameter 'word' of class String" do
-    #   Scrabble::Scoring.score("green").must_respond_to("green")
-    # end
+    it "should raise an ArgumentError if input is not String" do
+      proc { Scrabble::Scoring.score(5) }.must_raise(ArgumentError)
+    end
 
     it "should return a Fixnum" do
       Scrabble::Scoring.score("green").must_be_instance_of(Fixnum)
@@ -30,7 +30,24 @@ describe Scrabble::Scoring do
     end
   end
 
-  describe "#self.highest_score_from_array(word_array)" do
-    
+  describe "#self.highest_score_from(array_of_words)" do
+    it "should return a string" do
+    Scrabble::Scoring.highest_score_from(["green", "yellow", "kumquat"]).must_be_instance_of(String)
+    end
+
+    it "should return word with highest score" do
+    Scrabble::Scoring.highest_score_from(["green", "yellow", "kumquat"]).must_equal("kumquat")
+    end
+
+    it "should return word with highest score & fewest letters " do
+      Scrabble::Scoring.highest_score_from(["taste", "dog"]).must_equal("dog")
+    end
+
+    it "should return the first element of many that have same length, same score" do
+      Scrabble::Scoring.highest_score_from(["an", "sat", "ant", "rot"]).must_equal("sat")
+    end
+
   end
+
+
 end

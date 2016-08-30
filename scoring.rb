@@ -18,6 +18,10 @@ module Scrabble
     end
 
     def self.score(word)
+      if word.class != String
+        raise ArgumentError.new("Please enter a word.")
+      end
+
       word_array = word.upcase.split("")
       total_value = 0
 
@@ -33,6 +37,39 @@ module Scrabble
         total_value += 50
       end
       return total_value
+    end
+
+    def self.highest_score_from(array_of_words)
+      max_score = 0
+      current_word = []
+
+      array_of_words.each do |word|
+        if self.score(word) >= max_score
+          if self.score(word) > max_score
+            current_word = []
+            current_word << word
+            max_score = self.score(word)
+          else
+            current_word << word
+          end
+        end
+      end
+
+      length_of_word = 7
+      small_word = nil
+
+      if current_word.length > 0
+        current_word.each do |word|
+          if word.length == 7
+            return word
+          elsif word.length < length_of_word
+            length_of_word = word.length
+            small_word = word
+          end
+        end
+      end
+      return small_word
+
     end
 
   end
