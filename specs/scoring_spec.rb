@@ -47,6 +47,10 @@ describe Scrabble::Scoring do
       Scrabble::Scoring.highest_score_from(["an", "sat", "ant", "rot"]).must_equal("sat")
     end
 
+    it "should return the seven-letter word if both words have the same score" do
+      Scrabble::Scoring.highest_score_from(["qzqzqz", "aaaaaah"]).must_equal("aaaaaah")
+    end
+
   end
 
 
