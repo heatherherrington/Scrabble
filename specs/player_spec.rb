@@ -41,12 +41,17 @@ describe Scrabble::Player do
   describe "#play" do
     let(:player) { Scrabble::Player.new("Foot Foot") }
 
-    it "the last element of the array should equal the input value" do
-       player.play("fuzzy").must_equal(player.words_played.last)
+    it "the words_played array should include the input value" do
+      player.play("fuzzy")
+      player.words_played.must_include("fuzzy")
     end
 
     it "should return false if player has won" do
       player.play("zzzzzzz").must_equal(false)
+    end
+
+    it "should return a Fixnum" do
+      player.play("fuzzy").must_be_kind_of(Fixnum)
     end
   end
 
@@ -76,6 +81,42 @@ describe Scrabble::Player do
     it "should return a false" do
       player.play("bah")
       player.won?.must_equal(false)
+    end
+  end
+
+  describe "#highest_scoring_word" do
+    let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should return a string" do
+      player.play("goat")
+      player.play("think")
+      player.play("chair")
+      player.highest_scoring_word.must_be_kind_of(String)
+    end
+
+    it "should return a string of the highest scoring word" do
+      player.play("goat")
+      player.play("think")
+      player.play("chair")
+      player.highest_scoring_word.must_equal("think")
+    end
+  end
+
+  describe "#highest_word_score" do
+    let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should return a Fixnum" do
+      player.play("goat")
+      player.play("think")
+      player.play("chair")
+      player.highest_word_score.must_be_kind_of(Fixnum)
+    end
+
+    it "should return the score of the highest word" do
+      player.play("goat")
+      player.play("think")
+      player.play("chair")
+      player.highest_word_score.must_equal(12)
     end
   end
 end
