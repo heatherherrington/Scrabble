@@ -13,12 +13,12 @@ module Scrabble
       10 => %w(Q Z)
     }
 
-    def initialize#(word)
-      #@word = word
+    def initialize
+
     end
 
     def self.score(word)
-      if word.class != String
+      if word.class != String || word == ""
         raise ArgumentError.new("Please enter a word.")
       end
 
@@ -44,11 +44,12 @@ module Scrabble
       current_word = []
 
       array_of_words.each do |word|
-        if self.score(word) >= max_score
-          if self.score(word) > max_score
+        score = self.score(word)
+        if score >= max_score
+          if score > max_score
             current_word = []
             current_word << word
-            max_score = self.score(word)
+            max_score = score
           else
             current_word << word
           end
