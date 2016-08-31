@@ -17,6 +17,10 @@ describe Scrabble::Scoring do
       proc { Scrabble::Scoring.score(5) }.must_raise(ArgumentError)
     end
 
+    it "should raise an ArgumentError if input is an empty string" do
+      proc { Scrabble::Scoring.score("") }.must_raise(ArgumentError)
+    end
+
     it "should return a Fixnum" do
       Scrabble::Scoring.score("green").must_be_instance_of(Fixnum)
     end
