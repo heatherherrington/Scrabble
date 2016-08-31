@@ -11,6 +11,7 @@ module Scrabble
 
       @name = name
       @words_played = []
+      @max_word_score = 0
     end
 
     def plays
@@ -22,7 +23,7 @@ module Scrabble
       if won?
         return false
       end
-      return word
+      return Scrabble::Scoring.score(word)
     end
 
     def total_score
@@ -35,6 +36,23 @@ module Scrabble
 
     def won?
       total_score > 100
+    end
+
+    def highest_scoring_word
+      max_word = nil
+      @words_played.each do |word|
+        score = Scrabble::Scoring.score(word)
+        if score > @max_word_score
+          @max_word_score = score
+          max_word = word
+        end
+      end
+      return max_word
+    end
+
+    def highest_word_score
+      highest_scoring_word
+      @max_word_score
     end
   end
 end
