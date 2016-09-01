@@ -128,4 +128,20 @@ describe Scrabble::Player do
       player.highest_word_score.must_equal(12)
     end
   end
+
+  describe "#tiles" do
+    let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should return an array" do
+      player.tiles.must_be_kind_of(Array)
+    end
+  end
+
+  describe "#draw_player_tiles" do
+    let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should return an array" do
+      player.draw_player_tiles(Scrabble::Tilebag.new).must_be_kind_of(Array)
+    end
+  end
 end

@@ -1,3 +1,4 @@
+require_relative 'player'
 module Scrabble
   class Tilebag
     attr_reader :tilebag
@@ -33,7 +34,6 @@ module Scrabble
 
       def initialize
         @tilebag = []
-        @player_tiles = []
 
         NUMBER_OF_LETTERS.each do |key, value|
           value.times do
@@ -43,15 +43,16 @@ module Scrabble
       end
 
       def draw_tiles(num)
+        player_tiles = []
         if num.class != Fixnum
           raise ArgumentError.new("Please enter a number")
         end
 
         num.times do
-          @player_tiles << @tilebag.delete_at(rand(@tilebag.length))
+          player_tiles << @tilebag.delete_at(rand(@tilebag.length))
         end
 
-        return @player_tiles
+        return player_tiles
       end
 
       def tiles_remaining
