@@ -87,6 +87,11 @@ describe Scrabble::Player do
   describe "#highest_scoring_word" do
     let(:player) { Scrabble::Player.new("Foot Foot") }
 
+    it "should raise an ArgumentError if no words have been played" do
+      proc { player.highest_scoring_word }.must_raise(ArgumentError)
+    end
+
+
     it "should return a string" do
       player.play("goat")
       player.play("think")
@@ -104,6 +109,10 @@ describe Scrabble::Player do
 
   describe "#highest_word_score" do
     let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should raise an ArgumentError if no words have been played" do
+      proc { player.highest_word_score }.must_raise(ArgumentError)
+    end
 
     it "should return a Fixnum" do
       player.play("goat")

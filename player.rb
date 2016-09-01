@@ -40,6 +40,10 @@ module Scrabble
     end
 
     def highest_scoring_word
+      if @words_played.length == 0
+        raise ArgumentError.new("No words have been played.")
+      end 
+
       max_word = nil
       @words_played.each do |word|
         score = Scrabble::Scoring.score(word)
