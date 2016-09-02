@@ -145,4 +145,17 @@ describe Scrabble::Player do
       player.draw_player_tiles(Scrabble::Tilebag.new).must_be_kind_of(Array)
     end
   end
+
+  describe "#delete_played_tiles" do
+    let(:player) { Scrabble::Player.new("Foot Foot") }
+    # let(:example_tilebag) { Scrabble::Tilebag.new }
+
+    it "should return an array" do
+      player.delete_played_tiles.must_be_kind_of(Array)
+    end
+
+    it "should delete played tiles from tiles_in_hand" do
+      #figure out how to get tiles in hand (force code tiles in hand)
+    end
+  end
 end

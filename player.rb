@@ -97,5 +97,18 @@ module Scrabble
       end
       return @tiles_in_hand
     end
+
+    def delete_played_tiles
+      []
+    end
   end
 end
+
+
+# deleting played tiles from tilebag
+
+# word_split.each do |letter|
+#   if tiles.include?(letter)
+#   tiles.slice!(tiles.index(letter))
+#   end
+# end
