@@ -148,14 +148,30 @@ describe Scrabble::Player do
 
   describe "#delete_played_tiles" do
     let(:player) { Scrabble::Player.new("Foot Foot") }
-    # let(:example_tilebag) { Scrabble::Tilebag.new }
 
     it "should return an array" do
-      player.delete_played_tiles.must_be_kind_of(Array)
+      player.delete_played_tiles("foot").must_be_kind_of(Array)
     end
 
     it "should delete played tiles from tiles_in_hand" do
+      player.tiles_in_hand = %w(o o o f t a b)
+      player.delete_played_tiles("foot")
+      player.tiles_in_hand.must_equal(["o", "a", "b"])
       #figure out how to get tiles in hand (force code tiles in hand)
+    end
+  end
+
+  describe "#allowed?" do
+  let(:player) { Scrabble::Player.new("Foot Foot") }
+
+    it "should return a true" do
+      player.tiles_in_hand = %w(o o o f t a b)
+      player.allowed?("foot").must_equal(true)
+    end
+
+    it "should return a false" do
+      player.tiles_in_hand = %w(o o o f t a b)
+      player.allowed?("bah").must_equal(false)
     end
   end
 end

@@ -98,17 +98,41 @@ module Scrabble
       return @tiles_in_hand
     end
 
-    def delete_played_tiles
-      []
+    # splits argument into an array and iterates over array
+    # if letter is in tiles_in_hand, removes that tile
+    # and returns amended tiles_in_hand
+    def split_word(word)
+
+    end
+
+    def delete_played_tiles(word)
+      word_array = word.split("")
+      word_array.each do |letter|
+        if @tiles_in_hand.include?(letter)
+          @tiles_in_hand.slice!(@tiles_in_hand.index(letter))
+        end
+      end
+      return @tiles_in_hand
+    end
+
+    def allowed?(word)
+      tracking = @tiles_in_hand.clone
+      word_array = word.split("")
+
+      word_array.each do |letter|
+        if tracking.include?(letter)
+          tracking.slice!(tracking.index(letter))
+        end
+      end
+
+      tracking << word_array
+      tracking = tracking.flatten
+
+      @tiles_in_hand.length == tracking.length
+
     end
   end
 end
 
 
 # deleting played tiles from tilebag
-
-# word_split.each do |letter|
-#   if tiles.include?(letter)
-#   tiles.slice!(tiles.index(letter))
-#   end
-# end
