@@ -21,14 +21,18 @@ module Scrabble
       @words_played
     end
 
+    # Keeps track of what words each player has played in an array
     def play(word)
       @words_played << word
       if won?
         return false
       end
+      # Returns the score of the word if the player has not won
       return Scrabble::Scoring.score(word)
     end
 
+    # Calculates the total score for each player based on the array generated
+    # in play(word)
     def total_score
       player_total_score = 0
       @words_played.each do |word|
@@ -37,6 +41,7 @@ module Scrabble
       return player_total_score
     end
 
+    # Boolean that determines whether player has won
     def won?
       total_score > 100
     end
@@ -46,9 +51,13 @@ module Scrabble
         raise ArgumentError.new("No words have been played.")
       end
 
+      # Iterates over the words that have been played by this player and finds
+      # the word with the highest total score. Returns that word.
       max_word = nil
       @words_played.each do |word|
         score = Scrabble::Scoring.score(word)
+        # Keeps track of both word and score, to avoid duplication of code
+        # in highest_word_score
         if score > @max_word_score
           @max_word_score = score
           max_word = word
@@ -57,18 +66,20 @@ module Scrabble
       return max_word
     end
 
+    # Uses highest_scoring_word to return the score of that word
     def highest_word_score
       highest_scoring_word
       @max_word_score
     end
 
+
     def tiles
-      if @tiles_in_hand.length > 7
-        raise ArgumentError.new("Too many tiles")
-      end
       return @tiles_in_hand
     end
 
+    # Maximum number of tiles player can have is seven. Bases tiles drawn from
+    # tile bag off of max tiles (7) minus how many tiles that player has and
+    # puts drawn tiles into that player's tiles_in_hand
     def draw_player_tiles(tilebag)
       num = 7 - @tiles_in_hand.length
 

@@ -35,6 +35,7 @@ module Scrabble
       def initialize
         @tilebag = []
 
+        # Generates an array of tiles based on the hash above
         NUMBER_OF_LETTERS.each do |key, value|
           value.times do
             @tilebag << key
@@ -48,6 +49,8 @@ module Scrabble
           raise ArgumentError.new("Please enter a number")
         end
 
+        # Puts 'num' tiles from tile bag into player's bag and removed those
+        # tiles from the tile bag
         num.times do
           player_tiles << @tilebag.delete_at(rand(@tilebag.length))
         end
