@@ -33,14 +33,17 @@ module Scrabble
     }
 
       def initialize
-        @tilebag = []
-
         # Generates an array of tiles based on the hash above
-        NUMBER_OF_LETTERS.each do |key, value|
-          value.times do
-            @tilebag << key
-          end
+        # We did this to use the map enumerable
+
+        # Previously created empty array and iterated over
+        # hash using each to fill array with tiles
+        tilebag = NUMBER_OF_LETTERS.map do |key, value|
+          (key * value).split("")
         end
+        # at this point, we have an array of arrays and this
+        # reduces it to one array
+        @tilebag = tilebag.join.split("")
       end
 
       def draw_tiles(num)

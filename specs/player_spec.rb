@@ -59,6 +59,7 @@ describe Scrabble::Player do
     let(:player) { Scrabble::Player.new("Foot Foot") }
 
     it "should return a Fixnum" do
+      player.play("foot")
       player.total_score.must_be_kind_of(Fixnum)
     end
 

@@ -34,10 +34,17 @@ module Scrabble
     # Calculates the total score for each player based on the array generated
     # in play(word)
     def total_score
-      player_total_score = 0
-      @words_played.each do |word|
-        player_total_score += Scrabble::Scoring.score(word)
+      # COMMENTED CODE IS PRE-ENUMERABLE VERSION
+      # player_total_score = 0
+      # @words_played.each do |word|
+      #   player_total_score += Scrabble::Scoring.score(word)
+      # end
+
+      all_scores = @words_played.map do |word|
+        Scrabble::Scoring.score(word)
       end
+      player_total_score = all_scores.reduce(:+)
+
       return player_total_score
     end
 
